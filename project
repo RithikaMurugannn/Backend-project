@@ -1,0 +1,143 @@
+const express = require('express');
+const axios = require('axios');
+
+const app = express();
+app.use(express.json());
+
+// Dummy API URL for demonstration purposes
+const API_URL = "https://example.com/api/books";
+
+// Task 1: Get the book list available in the shop
+app.get('/books', async (req, res) => {
+    try {
+        const response = await axios.get(${API_URL}/all);
+        res.status(200).json(response.data);
+    } catch (error) {
+        res.status(500).json({ error: 'Failed to get book list' });
+    }
+});
+
+// Task 2: Get the books based on ISBN
+app.get('/books/isbn/:isbn', async (req, res) => {
+    try {
+        const response = await axios.get(${API_URL}/isbn/${req.params.isbn});
+        res.status(200).json(response.data);
+    } catch (error) {
+        res.status(500).json({ error: 'Failed to get book by ISBN' });
+    }
+});
+
+// Task 3: Get all books by Author
+app.get('/books/author/:author', async (req, res) => {
+    try {
+        const response = await axios.get(${API_URL}/author/${req.params.author});
+        res.status(200).json(response.data);
+    } catch (error) {
+        res.status(500).json({ error: 'Failed to get books by author' });
+    }
+});
+
+// Task 4: Get all books based on Title
+app.get('/books/title/:title', async (req, res) => {
+    try {
+        const response = await axios.get(${API_URL}/title/${req.params.title});
+        res.status(200).json(response.data);
+    } catch (error) {
+        res.status(500).json({ error: 'Failed to get books by title' });
+    }
+});
+
+// Task 5: Get book Review
+app.get('/books/:isbn/review', async (req, res) => {
+    try {
+        const response = await axios.get(${API_URL}/${req.params.isbn}/review);
+        res.status(200).json(response.data);
+    } catch (error) {
+        res.status(500).json({ error: 'Failed to get book review' });
+    }
+});
+
+// Task 6: Register New user
+app.post('/users/register', async (req, res) => {
+    try {
+        const response = await axios.post(${API_URL}/users/register, req.body);
+        res.status(201).json(response.data);
+    } catch (error) {
+        res.status(500).json({ error: 'User registration failed' });
+    }
+});
+
+// Task 7: Login as a Registered user
+app.post('/users/login', async (req, res) => {
+    try {
+        const response = await axios.post(${API_URL}/users/login, req.body);
+        res.status(200).json(response.data);
+    } catch (error) {
+        res.status(500).json({ error: 'Login failed' });
+    }
+});
+
+// Task 8: Add/Modify a book review (for registered users)
+app.post('/books/:isbn/review', async (req, res) => {
+    try {
+        const response = await axios.post(${API_URL}/${req.params.isbn}/review, req.body);
+        res.status(201).json(response.data);
+    } catch (error) {
+        res.status(500).json({ error: 'Failed to add/modify review' });
+    }
+});
+
+// Task 9: Delete book review added by that particular user
+app.delete('/books/:isbn/review', async (req, res) => {
+    try {
+        const response = await axios.delete(${API_URL}/${req.params.isbn}/review, { data: req.body });
+        res.status(200).json(response.data);
+    } catch (error) {
+        res.status(500).json({ error: 'Failed to delete review' });
+    }
+});
+
+// Task 10: Get all books – Using async callback function
+app.get('/books/async-callback', (req, res) => {
+    axios.get(${API_URL}/all)
+        .then(response => res.status(200).json(response.data))
+        .catch(error => res.status(500).json({ error: 'Failed to get all books using async callback' }));
+});
+
+// Task 11: Search by ISBN – Using Promises
+app.get('/books/promise/isbn/:isbn', (req, res) => {
+    axios.get(${API_URL}/isbn/${req.params.isbn})
+        .then(response => res.status(200).json(response.data))
+        .catch(error => res.status(500).json({ error: 'Failed to get book by ISBN using Promises' }));
+});
+
+// Task 12: Search by Author
+app.get('/books/promise/author/:author', (req, res) => {
+    axios.get(${API_URL}/author/${req.params.author})
+        .then(response => res.status(200).json(response.data))
+        .catch(error => res.status(500).json({ error: 'Failed to get books by author' }));
+});
+
+// Task 13: Search by Title
+app.get('/books/promise/title/:title', (req, res) => {
+    axios.get(${API_URL}/title/${req.params.title})
+        .then(response => res.status(200).json(response.data))
+        .catch(error => res.status(500).json({ error: 'Failed to get books by title' }));
+});
+
+// Task 14: Submission of Project GitHub Link
+app.post('/submit', (req, res) => {
+    const { githubLink } = req.body;
+    if (githubLink) {
+        res.status(200).json({ message: 'GitHub link submitted successfully', githubLink });
+    } else {
+        res.status(400).json({ error: 'GitHub link is required' });
+    }
+});
+
+// Starting the server
+const PORT = 3000;
+app.listen(PORT, () => {
+    console.log(Server running on port ${PORT});
+});
+
